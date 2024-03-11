@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>Rare | Product</title>
+<style>
+    .pic{
+        height: 65vh;
+    }
+    @media only screen and (max-width: 992px)
+    {
+        .pic{
+            height: 20vh;
+        }
+
+        .va{
+            margin-top: 0.9vw;
+        }
+    }
+    .row
+    {
+        margin-left: 0vw;
+        margin-right: 0vw;
+    }
+
+</style>
+{% endblock title %}
+{% block body %}
+<section class="call-to-action mt-2 pt-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-content pt-5">
+                    <div class="row">
+                        <div class="col-lg-12 pt-5">
+                            <h4 style="text-align: center;">Latest Blogs</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="blog-posts" style="width: auto;">
+    <div class="container">
+
+        
+        {% for i in all_blogs %}
+        
+        <div class="row my-2">
+
+            
+            <div class="col-lg-12">
+                <div class="down-content my-2">
+                    <span>{{i.subject}}</span>
+                    
+                    <p>{{i.content}}</p>
+
+                    <ul class="post-info mt-2 text-right">
+                        <li><a>By : {{i.posted_by}}</a></li>
+                        <li><a>{{i.posted_at}}</a></li>
+                    </ul>
+                    <hr>
+
+                    <img src="{{i.img.url}}" class="rounded mx-auto d-block pic w-100 pic" alt="...">
+                    
+                </div>
+            </div>
+
+            
+
+
+        </div>
+
+        {% endfor %}
+            
+
+        
+        
+    </div>
+</section>
+<script>
+    function faq_show() 
+    {
+        var a = document.getElementById("faq-form");
+        a.style.display = "block";
+    }
+
+    function like_show(like_list)
+    {
+        Swal.fire
+        ({
+            text:'Liked by:',
+            showCancelButton: false,
+            confirmButtonColor: '#f48840',
+            confirmButtonText: 'Got it!',
+            focusConfirm: false,
+        })
+    }
+</script>
+
+
+{% endblock body %}

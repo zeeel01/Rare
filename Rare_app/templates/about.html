@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+
+<body>
+
+  {% block body %}
+  <style>
+
+    .bl{
+      font-size: 8vh;
+    }
+    @media only screen and (max-width: 992px)
+    {
+        .bl{
+          font-size: 5vh;
+        }
+    }
+  </style>
+
+
+
+
+  <!-- ***** Preloader Start ***** -->
+  <!-- <div id="preloader">
+    <div class="jumper">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div> -->
+  <!-- ***** Preloader End ***** -->
+
+  <!-- Header -->
+
+
+  <!-- Page Content -->
+  <!-- Banner Starts Here -->
+  <div class="heading-page header-text">
+    <section class="page-heading">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="text-content">
+              <h4>Rare. </h4>
+              <h2>About Us</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Banner Ends Here -->
+
+
+  <section class="about-us">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="col-lg-12 bl"
+            style="height: 40vh; color: white;padding-top: 13vh; background-color: rgba(0, 0, 0, 0.849);"><span style="color: #f48840;">"</span>Creativity Takes Courage<span style="color: #f48840;">"</span></div>
+          <p style="font-size: large;"><a href="{% url 'home' %}" style="color: #f48840;">Rare</a> is the online
+            platform for growing atrists to showcase their art work to the artlovers out there in the market.<br>
+            By using Rare, artist will be ablle to get feedback on their art as well as earn money by selling their
+            art.<br>
+            Rare provides the community platform for art lovers who respect the art works of artists, and want to buy
+            the precious art work.<br>
+            It is an e-commerce website from where you can order the rarely availabe art piece and we will deliver it
+            directly to your door-step...!!</p>
+        </div>
+
+        <div class="col-lg-12">
+          <div id="map">
+            <iframe src="https://maps.google.com/maps?q=Av.+L%C3%BAcio+Costa,+Rio+de+Janeiro+-+RJ,+Brazil&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="450px" frameborder="0" style="border:0" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+
+      
+
+
+    </div>
+  </section>
+
+
+
+
+
+  {% endblock body %}
+</body>
+
+</html>

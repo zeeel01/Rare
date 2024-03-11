@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<style>
+    .product-link {
+        color: #212529;
+        text-decoration: underline;
+    }
+
+    .product-link:hover {
+        color: #f48840;
+    }
+
+    @media only screen and (max-width: 992px) {
+        .btn-danger {
+            margin-top: 1vh;
+        }
+    }
+
+    .btn-success {
+        margin-left: 1vw;
+    }
+</style>
+
+
+
+<section class="call-to-action mt-2 pt-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-content pt-5">
+                    <div class="row">
+                        <div class="col-lg-12 pt-5">
+                            <h4 style="text-align: center;">My Orders</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container">
+    {% if orders %}
+    <div class="table-responsive">
+
+        <table class="table table-striped mt-5 table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Order no.</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Products</th>
+                    <th scope="col">Order Status</th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+
+
+
+
+
+                {% for order in orders %}
+
+
+
+                <tr>
+                    <th scope="row"><a href="{% url 'orderdetails' order.id %}" class="product-link"> {{order.id}}</a></th>
+                    <td>$ {{order.amount}}</td>
+                    <td><a href="{% url 'orderedproducts' order.id %}" class="product-link">View
+                            Products</a></td>
+                    <td>{{order.status}}</td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+   
+
+    
+
+
+
+
+    {% else %}
+
+    <p>No data found</p>
+
+    {% endif %}
+</div>
+<script>
+    function deleteAlert(id) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                swalWithBootstrapButtons.fire(
+                    'Deleted!',
+                    'Your product has been removed.',
+                    'success'
+                )
+                window.location.href = "removeproduct/" + id + "/"
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'The product is in cart :)',
+                    'error'
+                )
+            }
+        })
+    }
+</script>
+
+
+{% endblock body %}

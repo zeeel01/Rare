@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<style>
+    .product-link {
+        color: #212529;
+        text-decoration: underline;
+    }
+
+    .product-link:hover {
+        color: #f48840;
+    }
+
+    @media only screen and (max-width: 992px) {
+        .btn-danger {
+            margin-top: 1vh;
+        }
+    }
+
+    .btn-success {
+        margin-left: 1vw;
+    }
+</style>
+
+
+
+<section class="call-to-action mt-2 pt-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-content pt-5">
+                    <div class="row">
+                        <div class="col-lg-12 pt-5">
+                            <h4 style="text-align: center;">My Address</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container">
+    {% if addresses %}
+    <div class="table-responsive">
+
+        <table class="table table-striped mt-5 table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col" class="justify-content-center"><center>Sr no.</center></th>
+                    <th scope="col"><center>Address</center></th>
+                    <th scope="col"><center>Contact</center></th>
+                    <th scope="col"><center>City</center></th>
+                    <th scope="col"><center>State</center></th>
+                    <th scope="col"><center>Zip</center></th>
+                    <th scope="col"><center>Actions</center></th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+
+
+
+
+
+                {% for address in addresses %}
+
+
+
+                <tr>
+                    <th scope="row"><center>{{forloop.counter}}</center></th>
+                    <td><center><a>{{address.address}}</a></center></td>
+                    <td><center>{{address.contact_no}}</a></center></td>
+                    <td><center>{{address.city}}</a></center></td>
+                    <td><center>{{address.state}}</a></center></td>
+                    <td><center>{{address.zip}}</a></center></td>
+
+                    <td>
+                        <center>
+                        <a class="btn btn-sm btn-success" style="color: white;" href="{% url 'finalizeaddress' address.id %}">Select</a>
+                        
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+    <div class="mt-5 d-flex justify-content-center">
+        <a class="btn col-lg-12" style="background-color: #f48840; color: white;" href="{% url 'checkout' %}">Add
+            Address</a>
+    </div>
+
+    {% endif %}
+</div>
+
+
+
+{% endblock body %}

@@ -1,0 +1,271 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="TemplateMo">
+  <link
+    href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
+    rel="stylesheet">
+
+  <title>Rare</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+
+  <!-- Additional CSS Files -->
+  <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/templatemo-stand-blog.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
+  <!--
+
+TemplateMo 551 Stand Blog
+
+https://templatemo.com/tm-551-stand-blog
+
+-->
+</head>
+
+<body>
+
+  <!-- ***** Preloader Start ***** -->
+  <div id="preloader">
+    <div class="jumper">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <!-- ***** Preloader End ***** -->
+
+  <!-- Header -->
+  <header class="">
+
+    <nav class="navbar navbar-expand-lg mx-2" style="width: auto">
+      <!-- <div class="container"> -->
+
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <h2 class="mx-3" style="font-size: xxx-large; font-family: Brush Script MT; color: #c6570e;">rare<em
+            style="color: black;">.</em></h2>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Home
+              <span class="sr-only"></span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'search' %}">Search</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Categories
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <ul lass="navbar-nav ml-auto">
+
+                {% for cat in cats %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'posts' cat.id %}">{{cat}}</a></li>
+                {% endfor %}
+
+
+
+
+              </ul>
+            </div>
+          </li>
+
+
+          {% if request.user.is_staff %}
+
+
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'newpost' %}">New Post</a>
+          </li>
+          {% endif %}
+          
+
+
+
+          {% if request.user.is_authenticated %}
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'myorders' %}">Orders</a>
+          </li>
+
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Profile
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <ul lass="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'editprofile' %}">Edit Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'changepassword' %}">Change password</a></li>
+
+                {% if request.user.is_staff %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'receivedorders' %}">My Orders</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'myposts' %}">My Products</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'myfaqs' %}">My FAQs</a></li>
+                {% endif %}
+
+                <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+
+
+              </ul>
+            </div>
+          </li>
+
+          {% endif %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Blogs
+            </a>
+            <div class="dropdown-menu" style="padding-right: 20px;" aria-labelledby="navbarDropdownMenuLink">
+              <ul lass="navbar-nav ml-auto">
+
+                {% if request.user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'newblog' %}">New blog</a></li>
+                
+
+                <li class="nav-item"><a class="nav-link" href="{% url 'blogs' %}">All blogs</a></li>
+
+                <li class="nav-item"><a class="nav-link" href="{% url 'myblogs' %}">My Blogs</a></li>
+                {% endif %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'blogs' %}">All blogs</a></li>
+
+              </ul>
+            </div>
+            
+          </li>
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'cart' %}">Cart</a>
+          </li>
+          {% endif %}
+          {% if not request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Log In</a>
+          </li>
+          {% endif %}
+
+
+
+
+
+        </ul>
+      </div>
+
+      <!-- </div> -->
+    </nav>
+
+  </header>
+
+  {% block title %}
+
+  {% endblock title %}
+
+
+  {% block body %}
+
+  {% endblock body %}
+
+
+  <footer>
+    <div class="container">
+      <div class="col-lg-12 mt-2">
+        <ul class="social-icons">
+          <a href="https://www.facebook.com/"><i class="fa fa-facebook p-2 px-2"
+              style="border:1px solid white; border-radius: 25%; color: white; font-size: 1em;"></i></a>
+          <a href="https://www.instagram.com/"><i class="fa fa-instagram p-2 ml-2"
+              style="border:1px solid white; border-radius: 25%; color: white;"></i></a>
+          <a href="https://www.twitter.com/"><i class="fa fa-twitter p-2 px-2 ml-2"
+              style="border:1px solid white; border-radius: 25%; color: white; font-size: 1em;"></i></a>
+
+          <a href="https://www.youtube.com/"><i class="fa fa-youtube-play p-2 px-2 ml-2"
+              style="border:1px solid white; border-radius: 25%; color: white; font-size: 1em;"></i></a>
+          <a href="https://in.pinterest.com/"><i class="fa fa-pinterest p-2 px-2 ml-2"
+              style="border:1px solid white; border-radius: 25%; color: white; font-size: 1em;"></i></a>
+          <a href="https://in.linkedin.com/"><i class="fa fa-linkedin p-2 px-2 ml-2"
+              style="border:1px solid white; border-radius: 25%; color: white; font-size: 1em;"></i></a>
+        </ul>
+      </div>
+
+      <div class="col-lg-12">
+
+
+        <ul class="social-icons mt-5">
+          <li style="display: inline-block;"><a href="{% url 'aboutus' %}">About Us</a></li>
+          <li style="display: inline-block;"><a href="{% url 'contactus' %}">Contact Us</a></li>
+
+        </ul>
+
+
+      </div>
+
+      <div class="col-lg-12">
+        <div class="copyright-text">
+          <p>Copyright 2023 Rare. Co.
+
+            &nbsp; | &nbsp; Credits : <a rel="nofollow" href="{% url 'home' %}" target="_parent">Rare.</a></p>
+        </div>
+      </div>
+    </div>
+    </div>
+  </footer>
+  <!-- Sweetalert link -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Additional Scripts -->
+  <script src="{% static 'assets/js/custom.js' %}"></script>
+  <script src="{% static 'assets/js/owl.js' %}"></script>
+  <script src="{% static 'assets/js/slick.js' %}"></script>
+  <script src="{% static 'assets/js/isotope.js' %}"></script>
+  <script src="{% static 'assets/js/accordions.js' %}"></script>
+
+  <script language="text/Javascript">
+    cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+    function clearField(t) {                   //declaring the array outside of the
+      if (!cleared[t.id]) {                      // function makes it static and global
+        cleared[t.id] = 1;  // you could use true and false, but that's more typing
+        t.value = '';         // with more chance of typos
+        t.style.color = '#fff';
+      }
+    }
+
+  </script>
+
+  {% for m in messages %}
+  <script>
+    let m = '{{m}}'
+    Swal.fire({
+      text: m,
+      confirmButtonColor: '#f48840',
+      confirmButtonText: 'Got it!'
+    })
+  </script>
+  {% endfor %}
+
+</body>
+
+</html>

@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<style>
+    .product-link {
+        color: #212529;
+        text-decoration: underline;
+    }
+
+    .product-link:hover {
+        color: #f48840;
+    }
+
+    @media only screen and (max-width: 992px) {
+        .btn-danger {
+            margin-top: 1vh;
+        }
+    }
+
+    .btn-success {
+        margin-left: 1vw;
+    }
+</style>
+
+
+
+<section class="call-to-action mt-2 pt-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-content pt-5">
+                    <div class="row">
+                        <div class="col-lg-12 pt-5">
+                            <h4 style="text-align: center;">My Cart</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container">
+    {% if products %}
+    <div class="table-responsive">
+
+        <table class="table table-striped mt-5 table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Sr no.</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Artist</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+
+
+
+
+
+                {% for product in products %}
+
+
+
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td><a href="{% url 'postdetails' product.id %}" class="product-link">{{product.title}}</a></td>
+                    <td>$ {{product.price}}</a></td>
+                    <td><a href="{% url 'viewartist'  product.id %}" class="product-link">View
+                            Artist</a></td>
+                    <td>
+                        <a class="btn btn-sm btn-danger" style="color: white;"
+                            onclick="deleteAlert('{{product.id}}')">Delete</a>
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-5 d-flex justify-content-end">
+        <h3>Cart Totals</h3>
+    </div>
+    <hr>
+    <div class="mt-1 d-flex justify-content-end">
+        Product total : $ {{total}} <br>
+        --------------------------------------<br>
+        Payable amount : $ {{total}}
+
+        
+
+    </div>
+    <div class="mt-5 d-flex justify-content-center">
+        <a class="btn col-lg-12" style="background-color: #f48840; color: white;" href="{% url 'selectaddress' %}">Checkout And Pay</a>
+    </div>
+    
+
+
+
+
+    {% else %}
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class=" border col-lg-8 pt-5 pb-5">
+
+                <center>
+                    <h2><span style="color: #f48840;">" </span><span style="color: black;"> Let Us Find You The True
+                            Artistic Piece...!!</span><span style="color: #f48840;"> "</span></h2>
+                </center>
+            </div>
+            <div class="col-lg-4 bg-dark d-flex justify-content-center">
+
+
+
+                <div class="main-button mt-lg-5">
+                    <a href="{% url 'home' %}">Start shopping</a>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+</div>
+<script>
+    function deleteAlert(id) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                swalWithBootstrapButtons.fire(
+                    'Deleted!',
+                    'Your product has been removed.',
+                    'success'
+                )
+                window.location.href = "removeproduct/" + id + "/"
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'The product is in cart :)',
+                    'error'
+                )
+            }
+        })
+    }
+</script>
+
+
+{% endblock body %}
